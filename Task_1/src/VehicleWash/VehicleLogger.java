@@ -1,7 +1,10 @@
+package VehicleWash;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
+
+import Vehicles.Vehicle;
 
 public class VehicleLogger {
     private PrintWriter pw;

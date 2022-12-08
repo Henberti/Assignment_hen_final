@@ -2,6 +2,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import VehicleWash.VehicleWasher;
+import Vehicles.Car;
+import Vehicles.MiniBus;
+import Vehicles.SUV;
+import Vehicles.Truck;
+
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner s = new Scanner(System.in);

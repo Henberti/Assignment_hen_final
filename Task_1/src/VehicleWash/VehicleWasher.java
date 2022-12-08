@@ -1,8 +1,12 @@
+package VehicleWash;
 import java.io.File;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import ADT.Queue;
+import Vehicles.Vehicle;
 
 public class VehicleWasher {
     enum TYPE {Car, SUV, MiniBus, Truck}

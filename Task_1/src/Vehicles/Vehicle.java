@@ -1,3 +1,6 @@
+package Vehicles;
+import VehicleWash.VehicleWasher;
+
 public abstract class Vehicle implements Runnable {
     private final int LICENSE;
     private final VehicleWasher WASHER;

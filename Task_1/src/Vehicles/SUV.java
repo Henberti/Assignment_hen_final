@@ -1,3 +1,7 @@
+package Vehicles;
+import VehicleWash.VehicleWasher;
+
+
 public class SUV extends Vehicle{
 
     public SUV(int license_number, VehicleWasher vehicleWasher) {
