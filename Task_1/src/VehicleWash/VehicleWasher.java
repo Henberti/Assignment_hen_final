@@ -95,6 +95,8 @@ public class VehicleWasher {
         if(check == 0){
             synchronized(vLog){
                 vLog.closeWrite();
+                System.out.println(line_time);
+                System.out.println(washing_time);
             }
         }
 

@@ -9,27 +9,25 @@ import Vehicles.SUV;
 import Vehicles.Truck;
 
 public class App {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
        
         int  washingMachines, carToArraive;
-        long timeArraive=1500, timeWash=3000;
+        double timeArraive=1.5;
+        double timeWash=3;
         File f = new File("washLogger.txt");
 
         //get inputs
-        System.out.println("how mach car will arraive?");
+        System.out.println("How mach car will arraive?");
         carToArraive = s.nextInt();
-        System.out.println("how mach washingmachine?");
+        System.out.println("How mach washingmachine?");
         washingMachines = s.nextInt();
-      
-
+       
 
         // creating car washer
-        long nextTime =(long)((((-Math.log(Math.random()))/timeArraive))*1000);
-        long washTime = (long)((((-Math.log(Math.random()))/timeWash))*1000);
+        long nextTime = (long) poissonDist(timeArraive);
+        long washTime = (long) poissonDist(timeWash);
         VehicleWasher vw = new VehicleWasher(carToArraive, washingMachines, nextTime, washTime, f);
-
-
 
 
         ArrayList<Thread> vehicles = new ArrayList<>();
@@ -59,25 +57,12 @@ public class App {
 
         vehicles.forEach(vehicle->{
             vehicle.start();
-            
-
         });
         s.close();
-      
+    }
 
-        
-       
-   
-
-
-      
-
-
-
-       
-
-
-
-        
+    public static double poissonDist(double lamda){
+        return (((-(Math.log(Math.random()))/lamda))*1000);
     }
 }
+
