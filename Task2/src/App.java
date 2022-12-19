@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
-import games.Game;
-import games.SelfGame;
-import games.UserGame;
+import Games.Game;
+import Games.SelfGame;
+import Games.UserGame;
 
 public class App {
     public static void main(String[] args) {
