@@ -2,18 +2,19 @@ package Vehicles;
 import VehicleWash.VehicleWasher;
 
 public abstract class Vehicle implements Runnable {
-    private final int LICENSE;
+    private final int LICENCE;
     private final VehicleWasher WASHER;
+    long finishTime;
 
 
-    public Vehicle(int license_number, VehicleWasher vehicleWasher){
-        this.LICENSE = license_number;
+    public Vehicle(int LICENCE_number, VehicleWasher vehicleWasher){
+        this.LICENCE = LICENCE_number;
         this.WASHER = vehicleWasher;
     }
 
     @Override
     public String toString() {
-        return "TYPE: "+this.getClass().getSimpleName()+ " lICENSE: "+LICENSE;
+        return "TYPE: "+this.getClass().getSimpleName()+ " LICENCE: "+LICENCE;
     }
 
     @Override
@@ -29,6 +30,13 @@ public abstract class Vehicle implements Runnable {
     }
         
     }
+    public void setFinishTime(long finishTime) {
+        this.finishTime = finishTime;
+    }
+    public long getFinishTime() {
+        return finishTime;
+    }
+  
 
 
 

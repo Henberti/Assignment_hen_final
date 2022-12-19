@@ -5,18 +5,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import ADT.Node;
 import ADT.Queue;
 import Vehicles.Vehicle;
 
+@SuppressWarnings("unchecked")
 public class VehicleWasher {
     enum TYPE {Car, SUV, MiniBus, Truck}
     Queue<Vehicle> inLine, wash, after_wash[];
     Semaphore empty,full;
-    Lock lock_inline, lock_wash, lock_after_wash;
+    Lock lock_inline, lock_wash, lock_after_wash, time_lock;
     long washing_time, line_time;
     VehicleLogger vLog;
     long startTime;
     AtomicInteger lineSize;
+    long avgTime;
+
    
 
 
@@ -24,6 +28,7 @@ public class VehicleWasher {
     public VehicleWasher(int lineSize,int machine_size, long washing_time, long line_time, File file){
         inLine = new Queue<>();
         wash = new Queue<>();
+        
         after_wash = new Queue[4];
         for(int i=0; i<4; i++)
             after_wash[i] = new Queue<>();
@@ -34,12 +39,14 @@ public class VehicleWasher {
         lock_inline = new ReentrantLock();
         lock_wash = new ReentrantLock();
         lock_after_wash = new ReentrantLock();
+        time_lock = new ReentrantLock();
 
         this.washing_time = washing_time;
         this.line_time = line_time;
         vLog = new VehicleLogger();
         startTime = System.currentTimeMillis();
         this.lineSize = new AtomicInteger(lineSize);
+        
     }
 
     public void inline(Vehicle vehicle) throws InterruptedException{
@@ -47,10 +54,12 @@ public class VehicleWasher {
         lock_inline.lock();
         inLine.enQueue(vehicle);
         lock_inline.unlock();
+
         Thread.sleep(line_time);
+
         synchronized(vLog){
             System.out.println(vehicle+" Arrived");
-            long time = (System.currentTimeMillis() - startTime)*1000;
+            long time = getCurrentTime();
             vLog.write(vehicle, time, 1);
         }
         // System.out.println("line: "+inLine);
@@ -65,9 +74,10 @@ public class VehicleWasher {
 
         lock_wash.lock();
         wash.enQueue(temp);
+        
         synchronized(vLog){
             System.out.println(temp+" in wash");
-            long time = (System.currentTimeMillis() - startTime)*1000;
+            long time = getCurrentTime();
             vLog.write(temp, time, 2);
         }
         // System.out.println("wash: "+wash);
@@ -81,7 +91,8 @@ public class VehicleWasher {
         Vehicle temp =wash.deQueue();
         synchronized(vLog){
             System.out.println(temp+" finish");
-            long time = (System.currentTimeMillis() - startTime)*1000;
+            long time = getCurrentTime();
+            temp.setFinishTime(time);
             vLog.write(temp, time, 3);
         }
         lock_wash.unlock();
@@ -95,11 +106,31 @@ public class VehicleWasher {
         if(check == 0){
             synchronized(vLog){
                 vLog.closeWrite();
-                System.out.println(line_time);
-                System.out.println(washing_time);
+                for(int i=0; i<after_wash.length; i++){
+                    avgTime = 0;
+                    Integer counter = 0;
+                    Node<Vehicle> first = after_wash[i].getFirst();
+                    while(first.hasNext()){
+                        counter++;
+                        avgTime += first.getData().getFinishTime();
+                        first = first.getNext();
+                    }
+                    String avgStr = after_wash[i].getFirst().getData().getClass().getSimpleName()+" Average Time: "+ avgTime/counter;
+                    System.out.println("\n"+avgStr);
+                }
             }
-        }
-
-        
+        } 
     }
+
+    public long getCurrentTime(){
+        long time;
+        try{
+        time_lock.lock();
+        time = System.currentTimeMillis() - startTime;
+        }finally{
+        time_lock.unlock();
+        }
+        return time;
+    }
+
 }

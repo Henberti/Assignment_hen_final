@@ -1,8 +1,6 @@
 package ADT;
-public class Queue<T> {
+public class Queue<T>{
     Node<T> first, last;
-
-
     public Queue(){
         first = last = null;
     }
@@ -41,5 +39,7 @@ public class Queue<T> {
             return "";
         return first.toString();
     }
-    
+    public Node<T> getFirst() {
+        return first;
+    }
 }

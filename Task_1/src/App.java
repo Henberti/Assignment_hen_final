@@ -62,7 +62,7 @@ public class App {
     }
 
     public static double poissonDist(double lamda){
-        return (((-(Math.log(Math.random()))/lamda))*1000);
+        return ((-((Math.log(Math.random()))/lamda))*1000);
     }
 }
 
