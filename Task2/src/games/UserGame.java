@@ -1,6 +1,6 @@
-package Games;
-import Players.SelfPlayer;
-import Players.UserPlayer;
+package games;
+import players.SelfPlayer;
+import players.UserPlayer;
 
 public class UserGame extends Game{
     Thread cpu, user;

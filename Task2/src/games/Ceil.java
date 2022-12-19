@@ -1,4 +1,4 @@
-package Games;
+package games;
 public class Ceil {
     private Integer[] cordination = new Integer[2];
     private String sign;

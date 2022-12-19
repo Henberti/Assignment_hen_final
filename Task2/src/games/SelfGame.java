@@ -1,5 +1,5 @@
-package Games;
-import .Players
+package games;
+import players.*;
 
 public class SelfGame extends Game{
     Thread player1, player2;
