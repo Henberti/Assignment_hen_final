@@ -1,11 +1,8 @@
 package games;
 import players.*;
 
-public class SelfGame extends Game{
+public class SelfGame extends Game{//HEN BERTI 201381407 && ELIRAN BALAISH 207598467
   
-   
-    
-
     public SelfGame() {
         super();
     }

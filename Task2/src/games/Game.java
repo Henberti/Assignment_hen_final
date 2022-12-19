@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class Game extends Thread{
+public abstract class Game extends Thread{//HEN BERTI 201381407 && ELIRAN BALAISH 207598467
     Thread player1, player2;
     private Ceil gameBoard[][] = new Ceil[3][3];
     public static enum TYPE{X,O};
@@ -134,16 +134,21 @@ public abstract class Game extends Thread{
                     break;
                }
             }
+            //if no one win
+            //the game will switch the turn to the next player
             switchTurn();
             gameTurn.set(false);
         }
         }
-
+        //if the game notice that the game is over 
+        //he interrupt the two threads of players to tell them to stop
         player1.interrupt();
         player2.interrupt();
         if(freeSize==0){
+            //if the game stopes beacuse that the board is full the game will print it
             System.out.println("Boaed is full");
         }
+        //print the winner if exist else print no one
         System.out.println("the winner is "+winner);
         
     }
