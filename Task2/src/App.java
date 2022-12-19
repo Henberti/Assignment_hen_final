@@ -4,7 +4,7 @@ import games.Game;
 import games.SelfGame;
 import games.UserGame;
 
-public class App {
+public class App {//HEN BERTI 201381407 && ELIRAN BALAISH 207598467
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
 
@@ -13,6 +13,9 @@ public class App {
     int choose = s.nextInt();
 
     Game game;
+
+    //choose one to play self game
+    //choose 2 to play with the computer
     
     switch(choose){
         case 1:
